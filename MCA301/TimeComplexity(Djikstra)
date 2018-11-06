@@ -1,0 +1,13 @@
+ Time Complexity:-
+ 
+ Dijkstra Algorithm is used to find the shortest distance to |V| no. of vertices in a graph.
+ Since we cannot determine exactly how many vertices it will Relax as it totally depends on the graph,
+ but it is clearly evident that at most it would Relax |V| no. of vertices.
+ 
+ This is proposed from the hypothesis that a given vertex may be connected to every other vertex in a given graph.
+ Such type of graph will be called a Complete graph where each vertex is connected to every other vertex.
+ 
+ Therefore, |V| no. vertices are relaxed against each vertex in a complete graph.
+ Hence, |V| * |V| which will be Big-Oh O(|V|^2). Let n = |V| then, the time complexity is O(n^2).
+
+ 
