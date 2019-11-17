@@ -1,0 +1,14 @@
+<% include partials/header %>
+<h4> <%=city.toUpperCase() %>'s Weather Today </h4>
+Temperature : <%=weather.list[0].main.temp%>°Celsius<br/>
+Min : <%=weather.list[0].main.temp_min%>°Celsius<br />
+Max : <%=weather.list[0].main.temp_max%>°Celsius<br/>
+<br/>
+<br/>
+
+<h4> <%=city.toUpperCase() %>'s Weather Tomorrow </h4>
+
+Temperature : <%=weather.list[0].main.temp%>°Celsius<br/>
+Min : <%=weather.list[0].main.temp_min%>°Celsius<br />
+Max : <%=weather.list[0].main.temp_max%>°Celsius<br/>
+<% include partials/footer %>
