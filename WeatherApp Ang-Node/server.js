@@ -2,6 +2,11 @@ var express = require('express');
 var neode = require('neode');
 const instance = new neode('bolt://localhost:7687','neo4j', '12345');
 instance.model('WeatherDetails' , {
+    city_id: {
+        primary: true,
+        type: 'uuid',
+        required: true, 
+    },
     cityName : {
         type : 'string'
     },
@@ -110,6 +115,61 @@ app.post("/city", function( req, res ) {
         console.log(error);
     });
 
+});
+
+
+app.get("/update/:id", function( req, res) {
+    instance.first('WeatherDetails', 'city_id', req.params.id)
+    .then(collection => {
+        var temp = {}
+        temp.id = collection.get('city_id')  
+        temp.citydata = collection.get('cityName')            
+        temp.today = collection.get('tempToday')
+        temp.todaymin = collection.get('tempMinToday')
+        temp.todaymax = collection.get('tempMaxToday')
+        temp.tom = collection.get('tempTom')
+        temp.tommin = collection.get('tempMinTom')
+        temp.tommax = collection.get('tempMaxTom')
+        res.render("editTemp", { obj : temp });
+    })
+});
+
+app.post("/update/:id", function( req, res) {
+    var id = req.params.id;
+    var dataRec = req.body;
+//    var str = "MATCH (n { city_id:{"+req.params.id+"})SET n.tempTom="+req.body.citytemptom;
+    instance.cypher("MATCH (n { city_id:{id}})SET n.tempTom="+ dataRec.citytemptom,{id:id})
+    console.log('UpdationSuccessful');
+    res.redirect("/");
+
+});
+
+app.get("/delete/:id", function( req, res) {
+    instance.first('WeatherDetails', 'city_id', req.params.id)
+    .then(collection => {
+        var temp = {}
+        temp.id = collection.get('city_id')  
+        temp.cityName = collection.get('cityName')            
+        temp.tempToday = collection.get('tempToday')
+        temp.tempMinToday = collection.get('tempMinToday')
+        temp.tempMaxToday = collection.get('tempMaxToday')
+        temp.tempTom = collection.get('tempTom')
+        temp.tempMinTom = collection.get('tempMinTom')
+        temp.tempMaxTom = collection.get('tempMaxTom')
+        res.render("delete", { obj : temp });
+    })
+});
+
+app.post("/delete/:id", function( req, res) {
+    //console.log(req.body);
+    instance.cypher("MATCH (n{city_id: {id}}) remove n."+req.body.select, {id: req.params.id})
+    res.redirect("/");
+});
+
+app.post("/deleteall/:id", function( req, res) {
+    //console.log(req.body);
+    instance.cypher('MATCH (n{city_id: {id}}) DELETE n', {id: req.params.id})
+    res.redirect("/");
 });
 
 app.get("/edit", function( req, res ) {
