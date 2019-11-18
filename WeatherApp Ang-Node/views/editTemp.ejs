@@ -1,0 +1,15 @@
+<% include partials/header %>
+    <div class="container">
+        <div class="col-4">
+            <form action="/update/<%=obj.id%>" method="POST">
+              <div class="form-group">
+                <input type="text" class="form-control" name="cityname" placeholder="Enter city name:" value="<%= obj.citydata %>"> <br />
+                <input type="text" class="form-control" name="citytemp" placeholder="Today's temprature:" value="<%= obj.today %>"><br />
+                <input type="text" class="form-control" name="citytemptom" placeholder="Tomorrow's temprature:" value="<%= obj.tom %>"><br />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit </button>
+            </form>
+        </div>
+    </div>
+    
+<% include partials/footer %>
