@@ -112,6 +112,28 @@ app.post("/city", function( req, res ) {
 
 });
 
+app.get("/edit", function( req, res ) {
+    var obj = []
+    instance.all('WeatherDetails', { } )
+        .then(collection => {
+            //console.log(collection);
+            for( var i = 0; i < collection.length; ++i )
+            {
+                var temp = {}
+                temp.id = collection.get(i).get('city_id')  
+                temp.citydata = collection.get(i).get('cityName')            
+                temp.today = collection.get(i).get('tempToday')
+                temp.todaymin = collection.get(i).get('tempMinToday')
+                temp.todaymax = collection.get(i).get('tempMaxToday')
+                temp.tom = collection.get(i).get('tempTom')
+                temp.tommin = collection.get(i).get('tempMinTom')
+                temp.tommax = collection.get(i).get('tempMaxTom')
+                obj.push(temp)
+            }
+            //console.log(obj);
+            res.render("edit.ejs", { collection : obj } )
+        })
+    })
 app.listen(8080,()=>{
     console.log("Server Listening at port number : 8080");
 });
