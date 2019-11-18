@@ -1,0 +1,38 @@
+<% include partials/header %>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>City Name</th>
+                <th>Today's Temp</th>
+                <th>Tomorrow's Temp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for( var i = 0; i < collection.length; ++i ) { %>
+                <tr>
+                    <td><%= collection[i].citydata %></td>
+                    <td><%= collection[i].today %></td>
+                    <td><%= collection[i].tom %> (<a href="/update/<%= collection[i].id %>">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>/<a href="/delete/<%= collection[i].id %>">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>)</td>
+                    <!-- 
+                    <td><a href="/update/<%= collection[i].id %>">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+                    <td><a href="/delete/<%= collection[i].id %>">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
+                    -->
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<% include partials/footer %>
