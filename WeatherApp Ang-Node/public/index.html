@@ -13,7 +13,7 @@
      </style>
 </head>
 <body ng-app="myApp">    
-  <div ng-controller="myCtrl">
+  <div>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -22,6 +22,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/">Home</a></li>
+                        <li><a href="/edit">Edit</a></li>
                     </ul>
                 </div>
             </div>
@@ -33,13 +34,13 @@
 
    
     <div class="container">
-        <div class="col-4">
-            <form action="/city" method="POST">
+        <div class="col-4" ng-controller="myCtrl">
+            <form>
               <div class="form-group">
                 <label for="cityInput" style="font-size: 3em; color:white"> City</label>
-                <input type="text" class="form-control" id="cityInput" name="cityInput" placeholder="Enter city">
+                <input type="text" class="form-control" id="cityInput" name="cityInput" placeholder="Enter city" ng-model="cityName">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" ng-click="submit()" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
